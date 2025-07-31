@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: doubt-solver-backend
+    env: python
+    buildCommand: ""
+    startCommand: python app.py
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11
