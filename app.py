@@ -1,19 +1,19 @@
 from flask import Flask, request, jsonify
 import requests
-
+import os
 from flask_cors import CORS
 
 app = Flask(__name__)
 CORS(app)
 
 TOGETHER_API_URL = "https://api.together.xyz/v1/chat/completions"
-TOGETHER_API_KEY = "160c58d03ec2fceac4436ebe0812308e883be949fe1c776838bca783bf7f3d19"  
+TOGETHER_API_KEY = os.environ.get("TOGETHER_API_KEY")
 TOGETHER_HEADERS = {
     "Authorization": f"Bearer {TOGETHER_API_KEY}",
     "Content-Type": "application/json"
 }
 
-WOLFRAM_APP_ID = "VVUR49P4X2"
+WOLFRAM_APP_ID = os.environ.get("WOLFRAM_APP_ID")
 
 @app.route('/ask', methods=['POST'])
 def ask():
@@ -96,4 +96,6 @@ def ask():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    import os
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
